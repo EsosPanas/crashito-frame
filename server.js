@@ -3,6 +3,12 @@ const app = express();
 
 app.use(express.json());
 
+// Añade headers para compatibilidad con Warpcast
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store');
+  next();
+});
+
 app.get('/', (req, res) => {
   res.set('Content-Type', 'text/html');
   res.send(`
